@@ -11,8 +11,11 @@ This scrips works only with SSH, so all your Github and Gitlab accounts need to 
 Useful links:
 
 https://www.atlassian.com/git/tutorials/git-ssh
+
 https://gist.github.com/Tamal/1cc77f88ef3e900aeae65f0e5e504794
+
 https://github.com/settings/keys
+
 https://gitlab.com/-/profile/keys
 
 ## Setup
@@ -38,7 +41,9 @@ Clone this repo, specify your api tokens and path where you want you repos to be
 Specify several API tokens, if you want to archive repositories from several different accounts. 
 
 You can get access tokens here:
+
 https://github.com/settings/tokens?type=beta
+
 https://gitlab.com/-/profile/personal_access_tokens
 
 Note that APi keys need to have the permission to read your repositories and your user info.

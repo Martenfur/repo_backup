@@ -37,6 +37,12 @@ Clone this repo, specify your api tokens and path where you want you repos to be
 
 Specify several API tokens, if you want to archive repositories from several different accounts. 
 
+You can get access tokens here:
+https://github.com/settings/tokens?type=beta
+https://gitlab.com/-/profile/personal_access_tokens
+
+Note that APi keys need to have the permission to read your repositories and your user info.
+
 **NOTE**: API tokens have an expiration date, you'll have to refresh them if you want to run the script continiousy.
 
 ## Usage

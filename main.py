@@ -33,14 +33,14 @@ def get_github_repos():
 			print("API KEY ERROR: the key " + token + " is invalid or has expired! Aborting")
 			continue
 
-		resposnse_json = json.loads(response.content)
-		username = resposnse_json["name"]
+		response_json = json.loads(response.content)
+		username = response_json["name"]
 		print("Looking up Github repositories for user " + username)
 
 		response = requests.get("https://api.github.com/search/repositories?q=user:" + username, headers=headers)
-		resposnse_json = json.loads(response.content)
+		response_json = json.loads(response.content)
 
-		for repo in resposnse_json["items"]:
+		for repo in response_json["items"]:
 			repos.append(repo["ssh_url"])
 			if repo["private"]:
 				print("Private repo found: " + repo["ssh_url"])
@@ -48,6 +48,23 @@ def get_github_repos():
 				print("Public repo found: " + repo["ssh_url"])
 			
 	return repos
+
+def get_gitlab_repos():
+	global gitlab_api_tokens
+	repos = []
+
+	for token in gitlab_api_tokens:
+		response = requests.get("https://gitlab.com/api/v4/projects?membership=true&private_token=" + token)
+		response_json = json.loads(response.content)
+		for repo in response_json:
+			repos.append(repo["ssh_url_to_repo"])
+			if repo["visibility"] == "private":
+				print("Private repo found: " + repo["ssh_url_to_repo"])
+			else:
+				print("Public repo found: " + repo["ssh_url_to_repo"])
+
+	return repos
+
 
 def extract_repo_from_url(url):
 	repo_pattern = r".+?[:/](?:[^/]+)/([^/]+)\.git"
@@ -86,5 +103,7 @@ def update_repos(repos):
 
 load_config()
 github_repos = get_github_repos()
-update_repos(github_repos)
+gitlab_repos = get_gitlab_repos()
+
+update_repos(github_repos + gitlab_repos)
 
